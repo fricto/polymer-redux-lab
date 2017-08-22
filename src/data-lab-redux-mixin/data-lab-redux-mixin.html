@@ -1,0 +1,42 @@
+<link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+<script src="../../node_modules/redux/dist/redux.min.js"></script>
+<script>
+	const initial = {
+		message: 'Hello from PolymerRedux'
+	};
+	const reducer = (state = initial, action) => {
+		switch (action.type) {
+			case 'UPDATE_MESSAGE':
+				return Object.assign({}, state, {
+					message: action.message
+				});
+
+			default:
+				return state;
+		}
+	};
+	const store = Redux.createStore(reducer);
+	ReduxMixin = PolymerRedux(store);
+
+	MessageMixin = Parent => class MessageMixin extends ReduxMixin(Parent) {
+		static get properties() {
+			return {
+				message: {
+					type: String,
+					statePath: 'message'
+				}
+			};
+		}
+
+		static get actions() {
+			return {
+				updateMessage(message) {
+					return {
+						type: 'UPDATE_MESSAGE',
+						message
+					}
+				}
+			};
+		}
+	};
+</script>

@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../data-lab-redux-mixin/data-lab-redux-mixin.html">
+
+<dom-module id="data-lab-foo-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h1>FOO</h1>
+    <p>[[message]]</p>
+    <button on-click="handleUpdateMessage">Update message</button>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class DataLabFooApp extends MessageMixin(Polymer.Element) {
+      static get is() { return 'data-lab-foo-app'; }
+
+      handleUpdateMessage() {
+        this.dispatch('updateMessage', 'BARRRRR');
+      }
+    }
+
+    window.customElements.define(DataLabFooApp.is, DataLabFooApp);
+  </script>
+</dom-module>
